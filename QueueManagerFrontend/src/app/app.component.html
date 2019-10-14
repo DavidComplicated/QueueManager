@@ -1,0 +1,55 @@
+<header>
+  <h1>Aircraft Queue Management System</h1>
+</header>
+<div *ngIf="status">
+  <div class="container">
+    <div style="display: flex">
+      <app-information-card class="card w-50"
+                            [type]="'CARGO'"
+                            [capacity]="'LARGE'"
+                            [listSize]="status.cargoLargeSize"
+                            (enqueueEvt)="enqueue($event)"></app-information-card>
+      <app-information-card class="card w-50"
+                            [type]="'CARGO'"
+                            [capacity]="'SMALL'"
+                            [listSize]="status.cargoSmallSize"
+                            (enqueueEvt)="enqueue($event)"></app-information-card>
+      <app-information-card class="card w-50" [type]="'PASSENGER'" [capacity]="'LARGE'"
+                            [listSize]="status.passengerLargeSize"
+                            (enqueueEvt)="enqueue($event)"></app-information-card>
+      <app-information-card class="card w-50"
+                            [type]="'PASSENGER'"
+                            [capacity]="'SMALL'"
+                            [listSize]="status.passengerSmallSize"
+                            (enqueueEvt)="enqueue($event)"></app-information-card>
+    </div>
+    <div class="mt-5" *ngIf="!status.nextToDequeue">No aircraft in queue</div>
+    <table class="table table-striped mt-5" *ngIf="status.nextToDequeue">
+      <thead class="thead-dark">
+        <tr>
+          <th colspan="2">
+            Next To Dequeue
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>TYPE:</th>
+        <td>{{status.nextToDequeue.aircraftType}}</td>
+      </tr>
+      <tr>
+        <th>CAPACITY:</th>
+        <td>{{status.nextToDequeue.aircraftSize}}</td>
+      </tr>
+      <tr>
+        <th>DATE ADDED:</th>
+        <td>{{status.nextToDequeue.timeAdded}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><a href="#" class="btn btn-primary" (click)="dequeue()">Dequeue Aircraft</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
